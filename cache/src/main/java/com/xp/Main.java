@@ -6,6 +6,7 @@ import com.xp.api.API;
 // import com.xp.cache.GlobalCache;
 import com.xp.cache.InMemoryCache;
 import com.xp.policy.EvictionPolicy;
+import com.xp.policy.LFUEviction;
 import com.xp.policy.LRUEviction;
 
 public class Main {
@@ -13,9 +14,11 @@ public class Main {
         API api = new API();
         Random random = new Random();
 
-        EvictionPolicy<Integer, String> evictionPolicy = new LRUEviction<>();
+        EvictionPolicy<Integer, String> lruEviction = new LRUEviction<>();
+        EvictionPolicy<Integer, String> lfuEviction = new LFUEviction<>();
 
-        InMemoryCache<Integer, String> cache = new InMemoryCache<>(10, evictionPolicy);
+        InMemoryCache<Integer, String> cache = new InMemoryCache<>(5, lfuEviction);
+        
         
         // InMemoryCache<Integer, String> cache = GlobalCache.getInstance(10, evictionPolicy);
         // cache = GlobalCache.getInstance(10, evictionPolicy); // This wouldn't work because global cache can only be initialized once

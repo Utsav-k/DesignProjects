@@ -31,6 +31,7 @@ public class InMemoryCache<K, V> implements Cache<K, V> {
             }
         }
         cacheStorage.put(key, value);
+        // This is needed as writing to cache also means the record was accessed.
         evictionPolicy.recordAccess(key);
     }
 
